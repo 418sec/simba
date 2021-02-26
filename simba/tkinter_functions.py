@@ -637,7 +637,7 @@ def changedlc_config(config_path, bodyPartConfigFile):
 
     if bodyPartConfigFile == 0:
         with open(config_path) as f:
-            read_yaml = yaml.load(f)
+            read_yaml = yaml.safe_load(f)
 
         read_yaml["bodyparts"] = ['Ear_left_1',
                                   'Ear_right_1',
@@ -668,7 +668,7 @@ def changedlc_config(config_path, bodyPartConfigFile):
             rows = [i[0] for i in rows]
             print(rows)
             with open(config_path) as d:
-                read_yaml = yaml.load(d)
+                read_yaml = yaml.safe_load(d)
             print(rows)
             read_yaml["bodyparts"] = rows
             with open(config_path, 'w') as outfile:

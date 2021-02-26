@@ -14,7 +14,7 @@ def generatetempyaml(yamlfile,videolist):
         deeplabcut.add_new_videos(tempyaml,[videolist],copy_videos=True)
 
         with open(tempyaml) as f:
-            read_yaml = yaml.load(f, Loader=yaml.FullLoader)
+            read_yaml = yaml.load(f, Loader=yaml.SafeLoader)
 
         original_videosets = read_yaml['video_sets'].keys()
 
@@ -41,7 +41,7 @@ def generatetempyaml_multi(yamlfile,videolist):
     deeplabcut.add_new_videos(tempyaml,videolist,copy_videos=True)
 
     with open(tempyaml) as f:
-        read_yaml = yaml.load(f, Loader=yaml.FullLoader)
+        read_yaml = yaml.load(f, Loader=yaml.SafeLoader)
 
     original_videosets = read_yaml['video_sets'].keys()
 
@@ -59,7 +59,7 @@ def generatetempyaml_multi(yamlfile,videolist):
 def updateiteration(yamlfile,iteration):
     yamlPath = yamlfile
     with open(yamlPath) as f:
-        read_yaml = yaml.load(f, Loader=yaml.FullLoader)
+        read_yaml = yaml.load(f, Loader=yaml.SafeLoader)
 
     read_yaml["iteration"] = int(iteration)
 
@@ -72,7 +72,7 @@ def update_init_weight(yamlfile,initweights):
     initweights,initw_filetype = os.path.splitext(initweights)
 
     with open(yamlPath) as f:
-        read_yaml = yaml.load(f, Loader=yaml.FullLoader)
+        read_yaml = yaml.load(f, Loader=yaml.SafeLoader)
 
     iteration = read_yaml['iteration']
 
@@ -85,7 +85,7 @@ def update_init_weight(yamlfile,initweights):
     posecfg = iterationfolder + '\\' + projectfolder +'\\train\\' + 'pose_cfg.yaml'
 
     with open(posecfg) as g:
-        read_cfg = yaml.load(g, Loader=yaml.FullLoader)
+        read_cfg = yaml.load(g, Loader=yaml.SafeLoader)
 
     read_cfg['init_weights'] = str(initweights)
 
@@ -97,7 +97,7 @@ def select_numfram2pick(yamlfile,numframe):
     try:
         yamlPath = yamlfile
         with open(yamlPath) as f:
-            read_yaml = yaml.load(f, Loader=yaml.FullLoader)
+            read_yaml = yaml.load(f, Loader=yaml.SafeLoader)
 
         read_yaml["numframes2pick"] = int(numframe)
 
@@ -121,7 +121,7 @@ def add_multi_video_yaml(yamlfile,directory):
     cropLineList = []
 
     with open(yamlPath) as f:
-        read_yaml = yaml.load(f, Loader=yaml.FullLoader)
+        read_yaml = yaml.load(f, Loader=yaml.SafeLoader)
 
     ####################### GET DIMENSIONS #############################
     for i in videoFilePathsToAdd:
@@ -154,7 +154,7 @@ def add_single_video_yaml(yamlfile,videofile):
     currCropLinePath = cropLine.strip("[]")
     currCropLinePath = currCropLinePath.replace("'", "")
     with open(yamlPath) as f:
-        read_yaml = yaml.load(f, Loader=yaml.FullLoader)
+        read_yaml = yaml.load(f, Loader=yaml.SafeLoader)
 
     read_yaml["video_sets"].update({videofile: {'crop': currCropLinePath}})
 
